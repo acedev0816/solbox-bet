@@ -43,7 +43,7 @@ const ResponsiveAppBar = () => {
     }, []);
 
     return (
-        <MyAppBar position="static" >
+        <MyAppBar position="static">
             <Container maxWidth="xl" sx={{height:"100%"}}>
                 <Toolbar disableGutters sx={{height:"100%"}} >
                     <img src="./assets/logo.png" style={{height:"100%"}}/>

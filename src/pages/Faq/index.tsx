@@ -128,39 +128,43 @@ export default () => {
 
                                 <tr>
                                     <td>0x</td>
-                                    <td>39.230%</td>
+                                    <td>39.115%</td>
                                 </tr>
                                 <tr>
                                     <td>0.5x</td>
-                                    <td>25.000%</td>
+                                    <td>24.675%</td>
                                 </tr>
                                 <tr>
                                     <td>1x</td>
-                                    <td>21.500%</td>
+                                    <td>20.4800%</td>
                                 </tr>
                                 <tr>
                                     <td>2x</td>
-                                    <td>8.000%</td>
+                                    <td>8.150%</td>
                                 </tr>
                                 <tr>
                                     <td>5x</td>
-                                    <td>5.000%</td>
+                                    <td>5.150%</td>
                                 </tr>
                                 <tr>
                                     <td>10x</td>
-                                    <td>1.500%</td>
+                                    <td>2.075%</td>
                                 </tr>
                                 <tr>
                                     <td>25x</td>
-                                    <td>0.200%</td>
+                                    <td>0.250%</td>
                                 </tr>
                                 <tr>
                                     <td>50x</td>
-                                    <td>0.050%</td>
+                                    <td>0.035%</td>
                                 </tr>
                                 <tr>
                                     <td>100x</td>
                                     <td>0.020%</td>
+                                </tr>
+                                <tr>
+                                    <td>125x</td>
+                                    <td>0.010%</td>
                                 </tr>
                             </tbody>
                         </table>

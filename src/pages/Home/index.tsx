@@ -79,10 +79,11 @@ const Home = () => {
     return (
         <Box>
             <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                <Typography sx={{ fontSize: 50, color: 'primary.main', fontWeight: 'bold' }}>
-                    Open Solbox to win upto 125x in SOL
+                <Typography sx={{ fontSize: 50, color: 'secondary.main', fontWeight: 'bold', textAlign: 'center' }}>
+                READY.SET.CREATE<br/>
+                UPTO 125x
                 </Typography>
-                <Typography sx={{ fontSize: 14, color: 'white', mt: 2 }}>
+                <Typography sx={{ fontSize: 14, color: 'secondary.main', mt: 2 }}>
                     No house edge, with 100% RTP
                 </Typography>
             </Box>
@@ -110,7 +111,7 @@ const Home = () => {
             <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
                 <Typography sx={{ fontSize: 40, color: 'primary.main', fontWeight: 'bold' }}>
 
-                    Recent Opens
+                    Recent Destinies Created
                 </Typography>
                 <Grid container spacing={2} mt={1}>
                     {recentOpens.map((data: any, id: number) => (
@@ -125,7 +126,7 @@ const Home = () => {
             <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
                 <Typography sx={{ fontSize: 40, color: 'primary.main', fontWeight: 'bold' }}>
 
-                    Your Recent Opens
+                Your Previous Destinies
                 </Typography>
                 <Grid container spacing={2} mt={1}>
                     {recentOpens.map((data: any, id: number) => (

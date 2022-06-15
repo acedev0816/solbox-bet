@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 import Header from "../Header"
 const ViewBaseRoot = styled('div')({
-    background: "center center url('/assets/back10.jpg') no-repeat",
+    background: "center center url('/assets/back2.jpg') no-repeat",
     backgroundSize: "cover",
     minHeight: "100vh",
     display: 'flex',

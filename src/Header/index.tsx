@@ -11,7 +11,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import styled from "styled-components";
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
@@ -19,13 +18,15 @@ import { Link } from 'react-router-dom';
 
 const MyAppBar = styled(AppBar)(({ theme }) => ({
     backgroundColor: 'white!important',
-    height: 120
+    height: 120,
+    
 }));
 
-const MyLink = styled(Link)({
+const MyLink = styled(Link)(({theme}) =>({
     marginLeft:"10px!important", 
-    marginRight:"10px!important"
-});
+    marginRight:"10px!important",
+    // color:theme.palette.primary.main
+}));
 
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -42,9 +43,9 @@ const ResponsiveAppBar = () => {
     }, []);
 
     return (
-        <MyAppBar position="static">
+        <MyAppBar position="static" >
             <Container maxWidth="xl" sx={{height:"100%"}}>
-                <Toolbar disableGutters sx={{height:"100%"}}>
+                <Toolbar disableGutters sx={{height:"100%"}} >
                     <img src="./assets/logo.png" style={{height:"100%"}}/>
                     {/* mobile menu */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -77,17 +78,16 @@ const ResponsiveAppBar = () => {
                             }}
                         >
                             <MenuItem onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">aaa</Typography>
+                                <Typography textAlign="center">Home</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, mr: 2, justifyContent: 'right' , alignItems: 'center'}}>
 
                         <MyLink  to="/">Home</MyLink>
-                        <MyLink to="/faq">About</MyLink>
-                        <MyLink to="#">How to CREATE</MyLink>
-                        <MyLink to="#">GOLDEN PASS</MyLink>
+                        <MyLink to="/about">About</MyLink>
+                        <MyLink to="/how-to-create">How to CREATE</MyLink>
+                        <MyLink to="/golden-pass">GOLDEN PASS</MyLink>
                         <MyLink to="/faq">FAQ</MyLink>
                         <IconButton
                             onClick={handleCloseNavMenu}

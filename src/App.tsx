@@ -1,7 +1,7 @@
 import React, { Suspense, useMemo } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { ThemeProvider } from "styled-components"
+import { ThemeProvider } from "@mui/material/styles"
 import theme from "./theme"
 import ViewBase from './ViewBase';
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
@@ -15,6 +15,9 @@ import { BrowserRouter, Routes, Route, useRoutes } from "react-router-dom";
 // pages
 import Home from "./pages/Home"
 import Faq from "./pages/Faq"
+import About from './pages/About';
+import HowToCreate from './pages/HowToCreate';
+import GoldenPass from './pages/GoldenPass';
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css');
 const network = WalletAdapterNetwork.Devnet;
@@ -41,6 +44,9 @@ function App() {
                 <Route path="/" element={<ViewBase />}>
                   <Route index element={<Home />} />
                   <Route path="faq" element={<Faq />} />
+                  <Route path="about" element={<About />} />
+                  <Route path="how-to-create" element={<HowToCreate />} />
+                  <Route path="golden-pass" element={<GoldenPass />} />
                 </Route>
               </Routes>
             </BrowserRouter>

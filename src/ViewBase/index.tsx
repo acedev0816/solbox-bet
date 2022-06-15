@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 import Header from "../Header"
 const ViewBaseRoot = styled('div')({
-    background: "center center url('/assets/back.png') no-repeat",
+    background: "center center url('/assets/back6.jpg') no-repeat",
     backgroundSize: "cover",
     minHeight: "100vh",
     display: 'flex',
@@ -18,6 +18,7 @@ const MainContent  = styled("div")({
 export default () => {
     React.useEffect(() => {
         console.log("===== effectin viewbase");
+        document.body.style.overflowY = "scroll";
     }, [])
     return (
         <ViewBaseRoot>

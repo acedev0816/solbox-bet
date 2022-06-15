@@ -12,7 +12,6 @@ export default ({ ...props }) => {
 
     }, [props]);
 
-    console.log("props", props);
     return (
         <Box sx={{
             display: 'flex',

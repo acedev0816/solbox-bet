@@ -80,8 +80,8 @@ const Home = () => {
         <Box>
             <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
                 <Typography sx={{ fontSize: 50, color: 'secondary.main', fontWeight: 'bold', textAlign: 'center' }}>
-                READY.SET.CREATE<br/>
-                UPTO 125x
+                READY. SET. CREATE.<br/>
+                UP TO 125x
                 </Typography>
                 <Typography sx={{ fontSize: 14, color: 'secondary.main', mt: 2 }}>
                     No house edge, with 100% RTP
@@ -97,7 +97,7 @@ const Home = () => {
                                 height={200}
                                 image={`assets/box/${index + 1}.jpg`}
                             />
-                            <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
+                            <CardContent sx={{ display: 'flex', alignItems: 'center',background: "url('/assets/back3.jpg') no-repeat",backgroundSize: "conver"}}>
                                 <Avatar src="/assets/solana.webp" />
                                 <Typography sx={{ ml: 1, flexGrow: 1 }} variant="h6">
                                     {price}
@@ -166,7 +166,7 @@ const Home = () => {
                         px: 3,
                         py: 1
                     }}>
-                        <h2 id="child-modal-title">Bet Finished</h2>
+                        <h2 id="child-modal-title" style={{fontWeight:50,}}>Bet Finished</h2>
                         <p id="child-modal-description">
                             You have won {openResult} SOL!
                         </p>

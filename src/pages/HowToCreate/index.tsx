@@ -20,12 +20,12 @@ export default () => {
                     How to CREATE YOUR DESTINY:
                 </Typography>
                 <Typography sx={{ mt: 1, color: 'gray', fontSize: 18 }}>
-                    1. Connect your phantom wallet.
-                    2. Choose which DESTINY BOX you would like to open in SOL (0.05, 0.1, 0.25, 0.5, 0.75, 1).
-                    3. Open your chosen path.
-                    4. See what your destiny holds.
-                    5. The rewards of your destiny will be paid directly into your connected wallet.
-                    6. LEGEND, you have now created your destiny with SOLBOX.
+                    1. Connect your phantom wallet.<br/>
+                    2. Choose which DESTINY BOX you would like to open in SOL (0.05, 0.1, 0.25, 0.5, 0.75, 1).<br/>
+                    3. Open your chosen path.<br/>
+                    4. See what your destiny holds.<br/>
+                    5. The rewards of your destiny will be paid directly into your connected wallet.<br/>
+                    6. LEGEND, you have now created your destiny with SOLBOX.<br/>
                 </Typography>
                 <Typography sx={{mt:4, color: 'secondary.main', fontSize:22}}>
                     Phantom Wallet

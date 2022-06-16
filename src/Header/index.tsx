@@ -46,7 +46,7 @@ const ResponsiveAppBar = () => {
         <MyAppBar position="static">
             <Container maxWidth="xl" sx={{height:"100%"}}>
                 <Toolbar disableGutters sx={{height:"100%"}} >
-                    <img src="./assets/logo.png" style={{height:"100%"}}/>
+                    <img src="./assets/logo.png" style={{height:"70%"}}/>
                     {/* mobile menu */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

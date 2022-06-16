@@ -96,7 +96,7 @@ export default () => {
                     <AccordionDetails>
                         <Typography>
                             We are SOLBOX and we believe in your DESTINY. <br />
-                            We are an innovative WEB 3 SMART CONTRACT built on the Solana blockchain that allows users to CREATE their destiny through the opening of different BOXES in Sol and win Sol in return to use however they like within their real life destiny. <br />
+                            We are an innovative WEB 3 SMART CONTRACT built on the Solana blockchain that allows users to CREATE their destiny through the opening of different BOXES in SOL and win SOL in return to use however they like within their real life destiny. <br />
                             There is a 10% transaction fee for every DESTINY BOX opened which is split up into:<br /><br />
 
                             <b>5%</b> to Looties NFT holders<br />
@@ -180,7 +180,7 @@ export default () => {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            0X, 0.5X, 1X, 2X, 5X, 10X, 25X, 50X, 100X for in real life destiny.<br />
+                            0X, 0.5X, 1X, 2X, 5X, 10X, 25X, 50X, 100X, 125X for in real life destiny.<br />
                             Transactions on the smart contract are verified on chain.<br />
 
                             <b>House wallet</b> :<br />

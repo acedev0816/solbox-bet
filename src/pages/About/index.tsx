@@ -9,7 +9,7 @@ export default () => {
                 <Typography sx={{mt:6, color: 'secondary.main', fontSize:22}}>
                     MANIFESTO
                 </Typography>
-                <Typography sx={{ mt: 1, color: 'gray', fontSize: 18 }}>
+                <Typography sx={{ mt: 1, color: '#555', fontSize: 18 }}>
 
                     Come bloom and take charge of your destiny. Patience is a virtue, our journey is here to pursue. Stay golden, past the trench of mutiny. Shine bright with the community. For we create our destiny!
                     Life is beyond this. Claim your glory.

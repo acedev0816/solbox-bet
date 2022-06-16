@@ -17,15 +17,17 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Link } from 'react-router-dom';
 
 const MyAppBar = styled(AppBar)(({ theme }) => ({
-    backgroundColor: 'white!important',
+    backgroundColor: '#100!important',
     height: 120,
-    
 }));
 
 const MyLink = styled(Link)(({theme}) =>({
     marginLeft:"10px!important", 
     marginRight:"10px!important",
-    // color:theme.palette.primary.main
+    color:'white',
+    "&:hover": {
+        color: '#ea8632'
+    }
 }));
 
 const ResponsiveAppBar = () => {

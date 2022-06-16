@@ -3,8 +3,7 @@ import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 import Header from "../Header"
 const ViewBaseRoot = styled('div')({
-    background: "url('/assets/back11.png') no-repeat",
-    backgroundSize: "cover",
+    background: "radial-gradient(circle, rgba(228,228,25,1) 0%, rgba(240,35,77,1) 99%)",
     minHeight: "100vh",
     display: 'flex',
     flexDirection: 'column'

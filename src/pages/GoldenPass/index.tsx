@@ -6,7 +6,7 @@ export default () => {
     return (
         <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
             <Box sx={{ maxWidth: 600,  }}>
-                <Typography sx={{mt:8, color:'gray', fontSize: 20}}>
+                <Typography sx={{mt:8, color:'#555', fontSize: 20}}>
                     The golden pass is your ticket to participate in an infinite amount of SOLBOX raffles and SOLBOX DAO. <br/>
                     Golden Passes mint price was 0.5 SOL. <br/>
                     Each holder is rewarded with various opportunities within our raffles as well as, 5+ holding grants revenue share. <br/>

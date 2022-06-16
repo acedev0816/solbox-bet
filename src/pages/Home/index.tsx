@@ -22,7 +22,7 @@ const Home = () => {
     const [openResult, setOpenResult] = useState<number>(-1);
 
     const onOpen = (index: number) => {
-        setImageSrc("assets/open.gif");
+        setImageSrc(`assets/failure/${index+1}.gif`);
         setOpen(true);
         setBoxId(index);
 
@@ -33,7 +33,7 @@ const Home = () => {
             setTimeout(() => {
                 console.log("timeout");
                 setOpenResult(1);
-            }, 6500);
+            }, 10000);
         }
 
     }, [imageLoaded]);
@@ -79,11 +79,11 @@ const Home = () => {
     return (
         <Box>
             <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                <Typography sx={{ fontSize: 50, color: 'secondary.main', fontWeight: 'bold', textAlign: 'center' }}>
+                <Typography sx={{ fontSize: 50, color: 'white', fontWeight: 'bold', textAlign: 'center' }}>
                 READY. SET. CREATE.<br/>
                 UP TO 125x
                 </Typography>
-                <Typography sx={{ fontSize: 14, color: 'secondary.main', mt: 2 }}>
+                <Typography sx={{ fontSize: 14, color: 'white', mt: 2 }}>
                     No house edge, with 100% RTP
                 </Typography>
             </Box>
@@ -109,8 +109,7 @@ const Home = () => {
                 ))}
             </Grid>
             <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                <Typography sx={{ fontSize: 40, color: 'primary.main', fontWeight: 'bold' }}>
-
+                <Typography sx={{ fontSize: 40, color: 'white', fontWeight: 'bold' }}>
                     Recent Destinies Created
                 </Typography>
                 <Grid container spacing={2} mt={1}>
@@ -124,7 +123,7 @@ const Home = () => {
             </Box>
 
             <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                <Typography sx={{ fontSize: 40, color: 'primary.main', fontWeight: 'bold' }}>
+                <Typography sx={{ fontSize: 40, color: 'white', fontWeight: 'bold' }}>
 
                 Your Previous Destinies
                 </Typography>

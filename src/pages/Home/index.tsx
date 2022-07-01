@@ -12,7 +12,7 @@ const MyModal = styled(Modal)({
     }
 });
 const Home = () => {
-    const prices = [0.05, 0.1, 0.25, 0.5, 0.75, 1];
+    const prices = [ 0.1, 0.25, 0.5, 0.75, 1];
     const { connection } = useConnection();
     const { publicKey, sendTransaction } = useWallet();
     const [open, setOpen] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const Home = () => {
             setTimeout(() => {
                 console.log("timeout");
                 setOpenResult(1);
-            }, 10000);
+            }, 9000);
         }
 
     }, [imageLoaded]);

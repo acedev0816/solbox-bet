@@ -7,30 +7,34 @@ import HistoryItem from "./HistoryItem";
 import styled from "styled-components";
 import * as anchor from "@project-serum/anchor";
 import { clusterApiUrl, Connection } from "@solana/web3.js";
-import { sendTransactions } from "./connection";
+import { sendTransactions } from "../../util/connection";
+import type { RootState } from "../../store";
+import { useSelector, useDispatch } from "react-redux"
+import { set } from "../../store/betSlice"
+import * as helper from "../../util/helper"
 
 const MyModal = styled(Modal)({
     "& .MuiBackdrop-root": {
         background: '#000d'
     }
 });
-const SOLBET_PROGRAM = "BWVuwvBhFG3nnUexc5CGCzGwELP3eK9oymPCtUiDQXxC";
 
 const Home = () => {
-    const prices = [0.1, 0.25, 0.5, 0.75, 1];
+    const prices = [0.01, 0.025, 0.05, 0.075, 0.1];
 
 
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [imageSrc, setImageSrc] = useState('');
+    const [image_loaded, setImageLoaded] = useState(false);
+    const [image_src, setImageSrc] = useState('');
 
-    const [betResult, setBetResult] = useState<number>(-1);
     const [open, setOpen] = useState<boolean>(false);
-    const [boxId, setBoxId] = useState<number>(-1);
-    const wallet = useAnchorWallet();
+    const [box_opening, setBoxOpening] = useState<boolean>(false);
 
-    const sleep = (ms: number): Promise<void> => {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
+    const [box_id, setBoxId] = useState<number>(-1);
+    const [bet_result, setBetResult] = useState<number>(0);
+
+    const wallet = useAnchorWallet();
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         (async () => {
@@ -45,27 +49,10 @@ const Home = () => {
         })();
     }, [])
 
-    const getConnection = () => {
-        const connection = new Connection(clusterApiUrl('devnet'), 'processed');
-        return connection;
-    }
-    const getProvider = () => {
-        const connection = getConnection();
-        const provider = new anchor.AnchorProvider(connection, wallet as anchor.Wallet, {
-            preflightCommitment: 'processed'
-        });
-        return provider;
-    }
-    const getProgram = async () => {
-        const provider = getProvider();
-        const idl = await anchor.Program.fetchIdl(SOLBET_PROGRAM, provider);
-        console.log("idl", idl);
-        const program = new anchor.Program(idl as anchor.Idl, SOLBET_PROGRAM, provider);
-        return program;
-    }
+    
 
     const doBet = async (amount: number) => {
-        const program = await getProgram();
+        const program = await helper.getProgram(wallet as anchor.Wallet);
         const player = (wallet as anchor.Wallet).publicKey;
 
         //find pda for vault
@@ -79,7 +66,7 @@ const Home = () => {
 
         // send Transaction
 
-        const provider = getProvider();
+        const provider = helper.getProvider(wallet as anchor.Wallet);
         const signersMatrix = [];
         const instructionMatrix = [];
         let instructions = [];
@@ -108,7 +95,7 @@ const Home = () => {
 
 
         //do bet
-        let bet_amount = amount * anchor.web3.LAMPORTS_PER_SOL/10;
+        let bet_amount = amount * anchor.web3.LAMPORTS_PER_SOL;
         instructions.push(program.instruction.bet(
             new anchor.BN(bet_amount),
             {
@@ -124,62 +111,58 @@ const Home = () => {
         signersMatrix.push([]);
 
         // claim prize
-        // instructions.push(
-        //     program.instruction.claimPrize({
-        //         accounts: {
-        //             player: player,
-        //             betAccount: bet_account_pda,
-        //             systemProgram: anchor.web3.SystemProgram.programId
-        //         }
-        //     })
-        // );
-
-        // ///
-        
-        // instructionMatrix.push(instructions);
-        // signersMatrix.push([]);
+      
         try {
             //original balance
             let bet_account = await program.account.betAccount.fetch(bet_account_pda);
             let org_prize_amount = (bet_account.prizeAmount as anchor.BN).toNumber();
-            
+
             //send trx
             let tx_result = (await sendTransactions(provider.connection, provider.wallet, instructionMatrix, signersMatrix)).txs.map(t => t.txid);
             console.log("tx_result", tx_result);
-            
+
             bet_account = await program.account.betAccount.fetch(bet_account_pda);
             let prize_amount = (bet_account.prizeAmount as anchor.BN).toNumber();
             console.log("prize_amount", prize_amount - org_prize_amount);
 
+            let bet_result = prize_amount - org_prize_amount;
+            dispatch(set(prize_amount));
+
+            return bet_result;
+
         } catch (e) {
             console.log("exception", e);
+            return null;
         }
     }
     const onOpen = async (index: number) => {
-        setImageSrc(`assets/failure/${index + 1}.gif`);
-        setOpen(true);
+        const bet_result = await doBet(prices[index])
+        if (bet_result as number > 0)
+            setImageSrc(`assets/success/${index + 1}.gif`);
+        else
+            setImageSrc(`assets/failure/${index + 1}.gif`);
+        
+        setBetResult(bet_result as number);
+
         setBoxId(index);
-        doBet(prices[index])
-
-
+        setBoxOpening(true);
 
 
     };
     useEffect(() => {
-        if (imageLoaded) {
+        if (image_loaded) {
             console.log("loaded");
             setTimeout(() => {
                 console.log("timeout");
-                setBetResult(1);
+                setBoxOpening(false);
             }, 9000);
         }
 
-    }, [imageLoaded]);
+    }, [image_loaded]);
 
     const onCloseBetResult = () => {
         setOpen(false);
         setBoxId(-1);
-        setBetResult(-1);
         setImageLoaded(false);
     }
     const [recentOpens, setRecentOpens] = useState([
@@ -276,12 +259,12 @@ const Home = () => {
             </Box>
             <Divider variant="fullWidth" sx={{ mt: 8, mb: 10, background: 'white', height: 2 }} />
             <MyModal
-                open={open}
+                open={box_id > -1}
                 // onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                {betResult == -1 ? (<Box sx={{
+                {box_id > -1 && box_opening ? (<Box sx={{
                     position: 'absolute' as 'absolute',
                     top: '40%',
                     left: '50%',
@@ -291,7 +274,7 @@ const Home = () => {
                     // boxShadow: 24,
                     // p: 4,
                 }}>
-                    <img style={{ width: "100%" }} src={imageSrc} onLoad={() => setImageLoaded(true)} />
+                    <img style={{ width: "100%" }} src={image_src} onLoad={() => setImageLoaded(true)} />
                 </Box>) :
                     (<Box sx={{
                         position: 'absolute' as 'absolute',
@@ -306,7 +289,7 @@ const Home = () => {
                     }}>
                         <h2 id="child-modal-title" style={{ fontWeight: 50, }}>Bet Finished</h2>
                         <p id="child-modal-description">
-                            You have won {betResult} SOL!
+                            You have bet with {prices[box_id]} SOL and won {bet_result/anchor.web3.LAMPORTS_PER_SOL} SOL!
                         </p>
                         <Button variant="outlined" color="secondary" onClick={onCloseBetResult}>Close</Button>
                     </Box>)

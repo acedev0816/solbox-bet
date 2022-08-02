@@ -18,6 +18,8 @@ import Faq from "./pages/Faq"
 import About from './pages/About';
 import HowToCreate from './pages/HowToCreate';
 import GoldenPass from './pages/GoldenPass';
+import { Provider } from 'react-redux';
+import { store } from './store';
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css');
 const network = WalletAdapterNetwork.Devnet;
@@ -39,17 +41,19 @@ function App() {
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <ThemeProvider theme={theme}>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<ViewBase />}>
-                  <Route index element={<Home />} />
-                  <Route path="faq" element={<Faq />} />
-                  <Route path="about" element={<About />} />
-                  <Route path="how-to-create" element={<HowToCreate />} />
-                  <Route path="golden-pass" element={<GoldenPass />} />
-                </Route>
-              </Routes>
-            </BrowserRouter>
+            <Provider store={store}>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<ViewBase />}>
+                    <Route index element={<Home />} />
+                    <Route path="faq" element={<Faq />} />
+                    <Route path="about" element={<About />} />
+                    <Route path="how-to-create" element={<HowToCreate />} />
+                    <Route path="golden-pass" element={<GoldenPass />} />
+                  </Route>
+                </Routes>
+              </BrowserRouter>
+            </Provider>
           </ThemeProvider>
         </WalletModalProvider>
       </WalletProvider>

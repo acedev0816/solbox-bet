@@ -15,7 +15,13 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import styled from "styled-components";
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Link } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from "../store";
+import * as anchor from "@project-serum/anchor";
+import * as helper from "../util/helper"
+import { useAnchorWallet } from '@solana/wallet-adapter-react';
+import { sendTransactions } from '../util/connection';
+import { set } from '../store/betSlice';
 const MyAppBar = styled(AppBar)(({ theme }) => ({
     backgroundColor: '#100!important',
     height: 120,
@@ -32,12 +38,12 @@ const MyLink = styled(Link)(({ theme }) => ({
 
 const ClaimButton = styled(Box)(({ theme }) => ({
     display: 'flex',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     alignItems: 'center',
     color: 'white',
     background: '#D98D04',
-    padding:'8px',
-    borderRadius:'8px',
+    padding: '8px',
+    borderRadius: '8px',
     cursor: 'pointer',
     "& .hover": {
         display: 'none',
@@ -48,10 +54,10 @@ const ClaimButton = styled(Box)(({ theme }) => ({
     "&:hover": {
         background: '#F49D14',
         transform: 'translate(2px, 1px)',
-        "& .hover":{
+        "& .hover": {
             display: 'block'
         },
-        "& .normal":{
+        "& .normal": {
             display: 'none'
         }
     }
@@ -67,10 +73,61 @@ const ResponsiveAppBar = () => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const wallet = useAnchorWallet();
+    const dispatch = useDispatch();
+
+    const reward = useSelector((state: RootState) => state.bet.reward);
+
     React.useEffect(() => {
         console.log("useEffect in header");
     }, []);
+    const handleClaim = async () => {
+        const program = await helper.getProgram(wallet as anchor.Wallet);
+        const player = (wallet as anchor.Wallet).publicKey;
 
+        //find pda for vault
+        const [vault_account_pda, vault_account_bump] = await anchor.web3.PublicKey.findProgramAddress(
+            [Buffer.from(anchor.utils.bytes.utf8.encode("vault"))],
+            program.programId
+        );
+        //find pda for the bet account
+        const [bet_account_pda, bet_account_bump] = await anchor.web3.PublicKey.findProgramAddress([player.toBuffer()], program.programId);
+
+
+        const provider = helper.getProvider(wallet as anchor.Wallet);
+        const signersMatrix = [];
+        const instructionMatrix = [];
+        let instructions = [];
+
+        //claim prize
+        instructions.push(
+            program.instruction.claimPrize({
+                accounts: {
+                    player: player,
+                    betAccount: bet_account_pda,
+                    systemProgram: anchor.web3.SystemProgram.programId
+                }
+            })
+        );
+
+        ///
+        instructionMatrix.push(instructions);
+        signersMatrix.push([]);
+
+        /// send trx
+        let tx_result = (await sendTransactions(provider.connection, provider.wallet, instructionMatrix, signersMatrix)).txs.map(t => t.txid);
+        console.log("tx_result", tx_result);
+
+        let bet_account = await program.account.betAccount.fetch(bet_account_pda);
+        let prize_amount = (bet_account.prizeAmount as anchor.BN).toNumber();
+        
+        dispatch(set(prize_amount));
+
+
+
+
+    }
     return (
         <MyAppBar position="static">
             <Container maxWidth="xl" sx={{ height: "100%" }}>
@@ -137,12 +194,12 @@ const ResponsiveAppBar = () => {
                     </Box>
                     <Box display='flex' flexDirection='column'>
                         <WalletMultiButton />
-                        <ClaimButton mt={'5px'}>
+                        <ClaimButton mt={'5px'} onClick={handleClaim}>
                             <Typography className={'hover'}>Claim reward</Typography>
 
                             <img src="./assets/trophy.png" className={'normal'} style={{ height: 20, marginRight: 10 }} />
-                            <Typography className={'normal'} >Reward: {5}&nbsp;</Typography>
-                            <img src="./assets/sol.svg" className={'normal'}  style={{ height: 15 }} />
+                            <Typography className={'normal'} >Reward: {reward / anchor.web3.LAMPORTS_PER_SOL}&nbsp;</Typography>
+                            <img src="./assets/sol.svg" className={'normal'} style={{ height: 15 }} />
 
                         </ClaimButton>
                     </Box>

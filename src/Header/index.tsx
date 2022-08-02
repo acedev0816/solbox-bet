@@ -21,12 +21,39 @@ const MyAppBar = styled(AppBar)(({ theme }) => ({
     height: 120,
 }));
 
-const MyLink = styled(Link)(({theme}) =>({
-    marginLeft:"10px!important", 
-    marginRight:"10px!important",
-    color:'white',
+const MyLink = styled(Link)(({ theme }) => ({
+    marginLeft: "10px!important",
+    marginRight: "10px!important",
+    color: 'white',
     "&:hover": {
         color: '#ea8632'
+    }
+}));
+
+const ClaimButton = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    justifyContent: 'center', 
+    alignItems: 'center',
+    color: 'white',
+    background: '#D98D04',
+    padding:'8px',
+    borderRadius:'8px',
+    cursor: 'pointer',
+    "& .hover": {
+        display: 'none',
+    },
+    "& .normal": {
+        display: 'block',
+    },
+    "&:hover": {
+        background: '#F49D14',
+        transform: 'translate(2px, 1px)',
+        "& .hover":{
+            display: 'block'
+        },
+        "& .normal":{
+            display: 'none'
+        }
     }
 }));
 
@@ -40,15 +67,15 @@ const ResponsiveAppBar = () => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-    React.useEffect(()=>{
+    React.useEffect(() => {
         console.log("useEffect in header");
     }, []);
 
     return (
         <MyAppBar position="static">
-            <Container maxWidth="xl" sx={{height:"100%"}}>
-                <Toolbar disableGutters sx={{height:"100%"}} >
-                    <img src="./assets/logo.png" style={{height:"70%"}}/>
+            <Container maxWidth="xl" sx={{ height: "100%" }}>
+                <Toolbar disableGutters sx={{ height: "100%" }} >
+                    <img src="./assets/logo.png" style={{ height: "70%" }} />
                     {/* mobile menu */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -84,9 +111,9 @@ const ResponsiveAppBar = () => {
                             </MenuItem>
                         </Menu>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, mr: 2, justifyContent: 'right' , alignItems: 'center'}}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, mr: 2, justifyContent: 'right', alignItems: 'center' }}>
 
-                        <MyLink  to="/">Home</MyLink>
+                        <MyLink to="/">Home</MyLink>
                         <MyLink to="/about">About</MyLink>
                         <MyLink to="/how-to-create">How to CREATE</MyLink>
                         <MyLink to="/golden-pass">GOLDEN PASS</MyLink>
@@ -108,7 +135,17 @@ const ResponsiveAppBar = () => {
                             </svg>
                         </IconButton>
                     </Box>
-                    <WalletMultiButton />
+                    <Box display='flex' flexDirection='column'>
+                        <WalletMultiButton />
+                        <ClaimButton mt={'5px'}>
+                            <Typography className={'hover'}>Claim reward</Typography>
+
+                            <img src="./assets/trophy.png" className={'normal'} style={{ height: 20, marginRight: 10 }} />
+                            <Typography className={'normal'} >Reward: {5}&nbsp;</Typography>
+                            <img src="./assets/sol.svg" className={'normal'}  style={{ height: 15 }} />
+
+                        </ClaimButton>
+                    </Box>
                 </Toolbar>
             </Container>
         </MyAppBar>

@@ -16,7 +16,6 @@ const MainContent  = styled("div")({
 
 export default () => {
     React.useEffect(() => {
-        console.log("===== effectin viewbase");
         document.body.style.overflowY = "scroll";
     }, [])
     return (
